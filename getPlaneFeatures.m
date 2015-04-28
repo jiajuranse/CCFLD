@@ -1,6 +1,6 @@
 function [normal pctExplained meanX sse] = getPlaneFeatures(X)
 
-[signals,coeff,roots] = pca2(X');
+[~,coeff,roots] = pca2(X');
 
 normal = coeff(:,3);
 
@@ -13,7 +13,7 @@ if (sum(roots)==0)
 else
     pctExplained = roots' ./ sum(roots);
 end;
-[n,p] = size(X);
+[n,~] = size(X);
 meanX = mean(X,1);
 
 error = abs((X - repmat(meanX,n,1))*normal);

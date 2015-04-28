@@ -1,5 +1,5 @@
 
-function [allFeatures numThemes rgbs labs] = createFeaturesFromData(data,maxFeatures)
+function [allFeatures, numThemes, rgbs, labs] = createFeaturesFromData(data,maxFeatures)
 
 
 allFeatures=[];
@@ -23,6 +23,10 @@ mapping = evalin('base', 'mapping');
 
 rgbs=zeros(numThemes,15);
 labs=zeros(numThemes,15);
+%add
+hsvs = zeros(numThemes, 15);
+chsvs = zeros(numThemes, 15);
+%add
 color=zeros(numThemes,15);
 sortedCol=zeros(numThemes,15);
 
@@ -45,7 +49,24 @@ satValThresh=0.2;
 [hueFeatures]=getHueProbFeatures(rand(3,5),satValThresh,hueProbs);
 
 hueProbFeatures=-99*ones(numThemes,length(hueFeatures));
+%
+for i = 1:numThemes
+    if size(data,3)==1
+        rgb=data;
+    else
+    %Color features
+        rgb = squeeze(data(i,:,:))';
+    end
+    numColors = sum(rgb(1,:)>=0);
+    rgb = rgb(:,1:numColors);
+    rgbs(i,1:(3*numColors))=rgb(:)';
+    [hsv, lab, chsv] = getColorSpaces(rgb,mapping);
+    labs(i,1:(3*numColors))=lab(:)';
+    hsvs(i,1:(3*numColors))=hsv(:)';
+    chsvs(i,1:(3*numColors))=chsv(:)';
+end
 
+%
 for c=1:4
     if (c==1)
         name='chsv';
@@ -60,24 +81,30 @@ for c=1:4
     for i=1:numThemes
 
 
-        if size(data,3)==1
-            rgb=data;
-        else
+        %if size(data,3)==1
+            %rgb=data;
+        %else
         %Color features
-            rgb = squeeze(data(i,:,:))';
-        end
+            %rgb = squeeze(data(i,:,:))';
+        %end
         
         
-        numColors = sum(rgb(1,:)>=0);
+        %numColors = sum(rgb(1,:)>=0);
         
-        rgb = rgb(:,1:numColors);
+        %rgb = rgb(:,1:numColors);
    
-        rgbs(i,1:(3*numColors))=rgb(:)';
+        %rgbs(i,1:(3*numColors))=rgb(:)';
         
 
-        [hsv lab chsv] = getColorSpaces(rgb,mapping);
+        %[hsv lab chsv] = getColorSpaces(rgb,mapping);
         
-        labs(i,1:(3*numColors))=lab(:)';
+        %labs(i,1:(3*numColors))=lab(:)';
+        
+        rgb = reshape(rgbs(i, :), [3, 5]);
+        numColors = sum(rgb(1,:)>=0);
+        lab = reshape(labs(i, :), [3, 5]);
+        hsv = reshape(hsvs(i, :), [3, 5]);
+        chsv = reshape(chsvs(i, :), [3, 5]);
         
         if strcmp(name,'chsv')
             col=chsv;
@@ -124,11 +151,12 @@ for c=1:4
         sortedDiff(i,(2*numDiffs+1):3*numDiffs)=sort(diffs(3,:),'descend');
 
 
-        means(i,:)=mean(col');
-        stddevs(i,:)=std(col');
-        medians(i,:)=median(col');
-        mins(i,:)=min(col');
-        maxs(i,:)=max(col');
+        tcol = col';
+        means(i,:)=mean(tcol);
+        stddevs(i,:)=std(tcol);
+        medians(i,:)=median(tcol);
+        mins(i,:)=min(tcol);
+        maxs(i,:)=max(tcol);
         maxMinDiff(i,:)=maxs(i,:)-mins(i,:);
         
 
@@ -136,10 +164,10 @@ for c=1:4
         
         %http://www.mathworks.com/products/statistics/demos.html?file=/products
         %/demos/shipping/stats/orthoregdemo.html
-        [plane(i,1:3) plane(i,4:6) planemean plane(i,7)] = getPlaneFeatures(col');
+        [plane(i,1:3), plane(i,4:6) , ~, plane(i,7)] = getPlaneFeatures(col');
 
         %sort colors
-        [B sortIdx] = sort(col(3,:));
+        [~, sortIdx] = sort(col(3,:));
         col = col(:,sortIdx);
         sortedCol(i,1:(3*numColors))=col(:); 
         
