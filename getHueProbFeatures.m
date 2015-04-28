@@ -1,8 +1,4 @@
 function [hueFeatures]=getHueProbFeatures(hsv,satValThresh,hueProbs)
-       
-
-hues=[];
-
 
 selectColors=(min(hsv(2:3,:))>=satValThresh);
 
@@ -39,7 +35,7 @@ for j=1:length(visHues)
 end
 
 pMix=pMix./sum(pMix);
-if length(visHues)~=0
+if ~isempty(visHues)
     entropy=-sum(pMix.*log(pMix));
 else
     %if no visible hues, set the entropy high
