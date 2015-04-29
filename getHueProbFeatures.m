@@ -6,7 +6,6 @@ hsv2=round(hsv.*repmat([359 100 100]',1,5))+1;
 
 visHues=hsv2(1,selectColors);
 
-
 hueJointList=[];
 for h1=1:length(visHues)
     for h2=h1:length(visHues)
@@ -30,6 +29,7 @@ hueAdjProbFeatures= getBasicStats(hueAdjList,1);
 alpha = linspace(0, 2*pi, 361)';
 alpha = alpha(1:end-1);
 pMix=0.001*ones(size(alpha));
+
 for j=1:length(visHues)
     pMix = pMix+ circ_vmpdf(alpha, (visHues(j)')*2*pi, 2*pi);
 end

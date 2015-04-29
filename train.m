@@ -3,7 +3,7 @@
 %This code/data is not yet public. Please do not distribute.
 %January 16, 2011
 
-
+setupenv
 %set the code directory...
 [codeRoot,~,~] =  fileparts(mfilename('fullpath'))
 codeRoot = strcat(codeRoot, '/');
