@@ -1,4 +1,4 @@
-inputImagePath = 'C:\Users\Public\Pictures\Sample Pictures\200X200.jpg';
+inputImagePath = 'D:\wty\sharedFolder\1.jpg';
 patternImageSize = 600;
 timeLimitSeconds = 60;
 setupenv;
@@ -26,4 +26,5 @@ for i=1:5
     end
 end
 imwrite(outputimg, strcat(inputImagePath, '.theme.png'));
+input('hi')
 system(['themeUtil\themesorter "', strcat(inputImagePath, '.theme.png"')])
