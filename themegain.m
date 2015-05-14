@@ -1,4 +1,4 @@
-function [ gain ] = themegain(rater, img, x )
+function [ gain ] = themegain(rater, img, x, trans )
 alpha = 3;
 [~, ~, dim] = size(img);
 assert(dim == 3);
@@ -13,8 +13,12 @@ for veciter = 1:nvecs
             raterVec(veciter, i, j) = x(veciter, (i-1)*3+j);
         end
     end
-    gain(veciter) = main(img, colorVec);
+    if (nargin == 4)
+        gain(veciter) = main(img, colorVec, trans);
+    else
+        gain(veciter) = main(img, colorVec);
+    end
 end
-gain = gain - alpha * rater(raterVec);
+%gain = gain - alpha * rater(raterVec);
 end
 

@@ -9,22 +9,18 @@ visHues=hsv2(1,selectColors);
 hueJointList=[];
 for h1=1:length(visHues)
     for h2=h1:length(visHues)
-
       hueJointList=[hueJointList (hueProbs.hueJoint(visHues(h2),visHues(h1)))];
-      
     end
 end
 
 hueAdjList=[];
 for h1=1:(length(visHues)-1)
    hueAdjList=[hueAdjList (hueProbs.hueAdjacency(visHues(h1),visHues(h1+1)))];
- 
 end
 
 hueProbFeatures= getBasicStats(hueProbs.hueProb(visHues),1);
 hueJointProbFeatures= getBasicStats(hueJointList,1);
 hueAdjProbFeatures= getBasicStats(hueAdjList,1);
-
 
 alpha = linspace(0, 2*pi, 361)';
 alpha = alpha(1:end-1);

@@ -13,8 +13,8 @@ for iter = 1:3
     data = data / 256;
     std(targets)
     while(1)
-        [A, count] = fscanf(inputFileHandle, '%f', 16);
-        if count < 16
+        [A, count] = fscanf(inputFileHandle, '%f', 15);
+        if count < 15
             break
         end
         A = vec2mat(A(1:15) / 256.0, 3);

@@ -19,8 +19,8 @@ dataset='keting'
 maxNumberOfDatapoints=10000;
 
 %create the datapoints and features
+%datapoints = createFeatureMatrixFast(dataset,maxNumberOfDatapoints);
 datapoints = createDatapoints(dataset,maxNumberOfDatapoints);
-
 %train LASSO regressor
 options=glmnetSet();  
 %this parameter set through cross-validation to minimize regression error 

@@ -114,7 +114,6 @@ if strcmp(object.class, 'elnet')
         error('Unrecognized type');
     end
 elseif strcmp(object.class, 'lognet')
-    
     a0=transpose(object.a0);
     nbeta=[object.a0; object.beta];
     if nargin == 4    

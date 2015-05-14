@@ -123,7 +123,6 @@ for c=1:4
         diff(i,1:3*(numColors-1))=[diffs(1,:) diffs(2,:) diffs(3,:)];
         
         numDiffs=numColors-1;
-        
         sortedDiff(i,1:numDiffs)=sort(diffs(1,:),'descend');
         sortedDiff(i,(numDiffs+1):2*numDiffs)=sort(diffs(2,:),'descend');
         sortedDiff(i,(2*numDiffs+1):3*numDiffs)=sort(diffs(3,:),'descend');
