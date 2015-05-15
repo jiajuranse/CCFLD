@@ -8,5 +8,5 @@ addpath([codeRoot,'themeUtil/']);
 
 load hueProbsRGB
 load kulerX
-load('fit.mat')
+%load('fit.mat')
 load('env.mat')

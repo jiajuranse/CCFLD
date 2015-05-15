@@ -30,5 +30,5 @@ for iter = 1:3
         targets(i) = 0.8 * targets(i) + gainterm(i, 1);
     end
     targetMatFileName = strcat(category, '.mat');
-save(targetMatFileName,'views','hearts','data','ids','targets','names');
+    save(targetMatFileName,'views','hearts','data','ids','targets','names');
 end

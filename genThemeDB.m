@@ -1,4 +1,4 @@
-themeBatch
+%themeBatch
 for iter = 1:3
     if iter == 1
         category='keting'
@@ -19,8 +19,10 @@ for iter = 1:3
         end
         inputFileHandle = fopen(filePath, 'r');
         [A, count] = fscanf(inputFileHandle, '%d', 15);
+        fclose(inputFileHandle)
         fprintf(outputFD, '%d ', A);
         fprintf(outputFD, '\n');
     end
+    fclose('all')
 end
 mixDataBase

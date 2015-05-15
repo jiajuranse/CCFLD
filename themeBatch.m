@@ -1,4 +1,4 @@
-rootDir = 'D:\wty\data\themegen\imageDB'
+rootDir = 'D:\wty\data\test_folder'
 patternImageSize = 500;
 timeLimitSeconds = 90;
 setupenv
@@ -6,7 +6,7 @@ setupenv
 fileList = getAllFiles(rootDir);
 themetxtfile = fopen(strcat(rootDir, 'extract.txt'), 'w');
 fprintf('%d files detected\n', length(fileList));
-parfor file_iter = 1:length(fileList)
+for file_iter = 1:length(fileList)
     filePath = fileList(file_iter);
     filePath = filePath{1};
     len = length(filePath);
